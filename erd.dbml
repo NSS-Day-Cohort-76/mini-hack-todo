@@ -1,0 +1,32 @@
+Table user {
+  id int pk
+  name varchar
+  email varchar
+  totalPoints int
+
+}
+
+Table task {
+  id int pk
+  name varchar
+  difficultyId int
+  userId int
+  isCompleted boolean
+  goalDate datetime
+  dateCompleted null
+  notes varchar
+
+}
+
+Table difficulty {
+  id int pk
+  name varchar
+  value int
+
+}
+
+
+
+Ref: "user"."id" < "task"."userId"
+
+Ref: "difficulty"."id" < "task"."difficultyId"
