@@ -9,10 +9,10 @@ import { useEffect, useState } from "react";
 
 
 export const ApplicationViews = () => {
-    const [currentUser, setCurrentUser] = useState({});
-  
-  
-    useEffect(() => {
+  const [currentUser, setCurrentUser] = useState({});
+
+
+  useEffect(() => {
     const localLearningUser = localStorage.getItem("task_user");
     const learningUserObject = JSON.parse(localLearningUser);
     setCurrentUser(learningUserObject);
@@ -20,7 +20,12 @@ export const ApplicationViews = () => {
 
   return (
     <div className="app-container">
+      <>
+        <Navbar />
+        <Outlet />
+      </>
       <Routes>
+        
         <Route path="/" element={<Tasks />} />
         {/* Add more routes here as needed */}
         <Route
@@ -40,8 +45,6 @@ export const ApplicationViews = () => {
           element={<CompletedTasks currentUser={currentUser} />}
         />
       </Routes>
-      <Navbar />
-      <Outlet />
     </div>
   );
 };
