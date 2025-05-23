@@ -1,0 +1,12 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.background-img {
+  size: 80%;
+  position: absolute;
+}
+.doodle {
+  font-family: "luckiest-guy", sans-serif;
+}
