@@ -1,6 +1,6 @@
 import "./Home.css";
-import checked from "../assets/checked.svg";
-import unchecked from "../assets/unchecked.svg";
+const checked = "/images/checked.svg";
+const unchecked = "/images/unchecked.svg";
 import { useState } from "react";
 import { useEffect } from "react";
 import { getAllTasks } from "../services/taskServices.jsx";
@@ -11,8 +11,8 @@ export const Tasks = ({ tasks, onCompleteTask }) => {
   useEffect(() => {
     getAllTasks().then((data) => {
       setAllTasks(data);
-    }
-  , []);
+    });
+  }, []);
 
   return (
     <section className="section-container">
@@ -37,4 +37,4 @@ export const Tasks = ({ tasks, onCompleteTask }) => {
       </div>
     </section>
   );
-}
+};
