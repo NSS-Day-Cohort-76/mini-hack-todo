@@ -1,6 +1,6 @@
 import "./Home.css";
-// import checked from "../images/checked.svg";
-// import unchecked from "../images/unchecked.svg";
+const checked = "/images/checked.svg";
+const unchecked = "/images/unchecked.svg";
 import { useState } from "react";
 import { useEffect } from "react";
 import { getAllTasks } from "../services/taskServices.jsx";
@@ -14,7 +14,7 @@ export const Tasks = ({ tasks, onCompleteTask }) => {
     });
   }, []);
 
-return (
+  return (
     <section className="section-container">
       <img className="background-img" src="/images/doodle.svg" alt="Example" />
 
