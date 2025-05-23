@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import "./Login.css";
-import { getUserByEmail } from "../src/Services/UserServices";
+import { getUserByEmail } from "../src/services/userServices";
 
 export const Login = () => {
   const [email, set] = useState("");
@@ -17,7 +17,7 @@ export const Login = () => {
         localStorage.setItem(
           "task_user",
           JSON.stringify({
-            id: user.id,
+            id: user.id
           })
         );
 
