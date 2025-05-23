@@ -1,25 +1,40 @@
-import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { getDifficulties } from "../../services/taskServices";
+import { useEffect, useState } from "react"
+import { useNavigate, } from "react-router-dom"
+import { createTask, getDifficulties } from "../../services/taskServices"
 
 export const CreateTasks = ({ currentUser }) => {
   const [task, setTask] = useState({
     name: "",
     difficultyId: 0,
-    isCompleted: false,
-  });
-  const [difficulty, setDifficulty] = useState([]);
+    isCompleted: false
+  })
+  const [difficulty, setDifficulty] = useState([])
 
-  const { taskId } = useParams();
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   useEffect(() => {
-    getDifficulties().then((res) => setDifficulty(res));
-  }, []);
+    getDifficulties().then(res => setDifficulty(res))
+  }, [])
 
-  const handleSave = {
-    navigate,
-  };
+const handleCreate = event => {
+  event.preventDefault()
+
+  if (!task.name || !task.difficultyId) {
+    alert("Please provide both task name and difficulty.")
+    return
+  }
+
+  const newTask = {
+    title: task.name,
+    difficultyId: task.difficultyId, 
+    isCompleted: false,
+    dateCreated: new Date().toISOString()
+  }
+
+  createTask(newTask).then(() => navigate(`/`))
+}
+
+  const selectedDifficulty = difficulty.find(d => d.id === task.difficultyId)
 
   return (
     <div className="form-container">
@@ -28,39 +43,43 @@ export const CreateTasks = ({ currentUser }) => {
           type="text"
           className="form-control"
           placeholder="To-do..."
-          onChange={(event) => {
-            const copy = { ...task };
-            copy.name = event.target.value;
-            setTask(copy);
-          }}></input>
+          onChange={event => {
+            const copy = { ...task }
+            copy.name = event.target.value
+            setTask(copy)
+          }}
+        />
         <div className="form-group">
           <article className="dropdown">
             <select
               id="difficulty-selector"
               name="difficulty"
               defaultValue=""
-              onChange={(event) => {
-                const copy = { ...task };
-                copy.difficultyId = parseInt(event.target.value);
-                setTask(copy);
+              onChange={event => {
+                const copy = { ...task }
+                copy.difficultyId = parseInt(event.target.value)
+                setTask(copy)
               }}
-              required>
-              <option disabled value="">
-                Choose Difficulty
-              </option>
-              {difficulty.map((difficulty) => (
-                <option value={difficulty.id} key={difficulty.id}>
-                  {difficulty.name}
+              required
+            >
+              <option disabled value="">Choose Difficulty</option>
+              {difficulty.map(d => (
+                <option value={d.id} key={d.id}>
+                  {d.name}
                 </option>
               ))}
             </select>
           </article>
         </div>
       </div>
-      <div className="form-group"></div>
+      <div className="form-group">
+        {selectedDifficulty ? selectedDifficulty.points : ""}
+      </div>
       <div className="save-btn">
-        <button onClick={handleSave}>Submit</button>
+        <button onClick={handleCreate}>
+          Submit
+        </button>
       </div>
     </div>
-  );
-};
+  )
+}
