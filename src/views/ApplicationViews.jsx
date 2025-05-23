@@ -7,6 +7,7 @@ import { Leaderboard } from "../components/Leaderboard";
 import { CompletedTasks } from "../components/CompletedTasks";
 import { useEffect, useState } from "react";
 
+
 export const ApplicationViews = () => {
     const [currentUser, setCurrentUser] = useState({});
   
