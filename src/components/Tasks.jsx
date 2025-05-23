@@ -1,35 +1,40 @@
-import "./Home.css"
-import { useState, useEffect } from "react"
-import box-no from 
+import "./Home.css";
+// import checked from "../images/checked.svg";
+// import unchecked from "../images/unchecked.svg";
+import { useState } from "react";
+import { useEffect } from "react";
+import { getAllTasks } from "../services/taskServices.jsx";
 
 export const Tasks = ({ tasks, onCompleteTask }) => {
+  const [allTasks, setAllTasks] = useState([]);
 
-  const [tasks, setTasks] = useState();
-  const [onCompleteTask, setOnCompleteTask] = useState()
+  useEffect(() => {
+    getAllTasks().then((data) => {
+      setAllTasks(data);
+    });
+  }, []);
 
-    return ( 
+return (
     <section className="section-container">
       <img className="background-img" src="/images/doodle.svg" alt="Example" />
+
       <div className="section-header">
         <h1 className="doodle">To-doodle-Do!</h1>
       </div>
+
       <div className="task-list">
-       {tasks?.map((task) => (
-        <div key={task.id} className="task-item">
-          <img src={task.isComplete ? checked : unchecked}
-          className="checkbox-icon"
-          />
-          <span className={task.isComplete ? "completed" : ""}>{task.name}
-          </span>
-          {!task.isComplete && (
-            <button onClick={() => onCompleteTask(task.id)}>Complete</button>
-          )}
+        {allTasks.map((task) => (
+          <div key={task.id} className="task-item">
+            <img
+              src={task.isComplete ? checked : unchecked}
+              className="checkbox-icon"
+              alt="checkbox"
+            />
+            <span className={task.isComplete ? "completed" : ""}>{task.title}</span>
+            {!task.isComplete && <button onClick={() => onCompleteTask(task.id)}>Complete</button>}
+          </div>
+        ))}
       </div>
-       ))}
-       </div> 
-       </section>
-      )}
-      
-
-
-
+    </section>
+  );
+};
